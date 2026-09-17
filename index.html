@@ -142,14 +142,15 @@
       z-index: 1;
     }
 
-    .art-container {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-    }
+   .art-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-8vh);
+  z-index: 2;
+}
 
     .album-art {
       max-width: 70vh;
@@ -159,9 +160,9 @@
       transition: opacity 0.8s ease-in-out;
     }
 
-    .track-info {
+  .track-info {
   position: absolute;
-  bottom: 4vh;
+  top: 79vh;
   left: 50%;
   width: 70vh;
   transform: translateX(-50%);
