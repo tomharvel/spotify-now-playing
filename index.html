@@ -353,6 +353,36 @@ body,
 .bg-layer {
   inset: -100px;
 }
+
+.playback-controls {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 24px;
+  z-index: 10;
+}
+
+.control-btn {
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  color: white;
+  font-size: 34px;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: all 0.2s ease;
+}
+
+.control-btn:focus {
+  outline: 2px solid white;
+  opacity: 1;
+  transform: scale(1.08);
+}
     
   </style>
 </head>
@@ -403,6 +433,11 @@ body,
       Now Playing
     </div>
 
+    <div class="playback-controls" id="playbackControls">
+  <button class="control-btn" id="previousBtn">‹</button>
+  <button class="control-btn" id="nextBtn">›</button>
+</div>
+    
     <button class="fullscreen-btn" id="fullscreenBtn" title="全屏">⛶</button>
   </div>
 
@@ -413,7 +448,27 @@ body,
 
   <script>
     const POLL_INTERVAL = 1000;
-    const SCOPES = 'user-read-currently-playing user-read-playback-state';
+    const SCOPES = 'user-read-currently-playing user-read-playback-state user-modify-playback-state';
+
+    async function nextTrack() {
+  await fetch('https://api.spotify.com/v1/me/player/next', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${accessToken}` }
+  });
+}
+
+async function previousTrack() {
+  await fetch('https://api.spotify.com/v1/me/player/previous', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${accessToken}` }
+  });
+}
+
+const previousBtn = document.getElementById('previousBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+previousBtn.addEventListener('click', previousTrack);
+nextBtn.addEventListener('click', nextTrack);
 
     let accessToken = null;
     let refreshToken = null;
