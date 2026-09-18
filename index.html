@@ -386,6 +386,16 @@ body,
   opacity: 1;
   transform: scale(1.08);
 }
+
+.playback-controls {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.playback-controls.hidden {
+  opacity: 0;
+  pointer-events: none;
+}    
     
   </style>
 </head>
@@ -472,6 +482,24 @@ const nextBtn = document.getElementById('nextBtn');
 
 previousBtn.addEventListener('click', previousTrack);
 nextBtn.addEventListener('click', nextTrack);
+
+let controlsTimer;
+
+function showControls() {
+  playbackControls.classList.remove('hidden');
+
+  clearTimeout(controlsTimer);
+
+  controlsTimer = setTimeout(() => {
+    playbackControls.classList.add('hidden');
+  }, 3000);
+}
+
+document.addEventListener('keydown', showControls);
+document.addEventListener('mousemove', showControls);
+document.addEventListener('click', showControls);
+
+showControls();
 
     let accessToken = null;
     let refreshToken = null;
