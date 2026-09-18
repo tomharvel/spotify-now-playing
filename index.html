@@ -356,11 +356,14 @@ body,
 
 .playback-controls {
   position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
   display: flex;
-  gap: 24px;
+  justify-content: space-between;
+  padding: 0 40px;
+  box-sizing: border-box;
   z-index: 10;
 }
 
