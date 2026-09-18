@@ -599,13 +599,20 @@
     }
 
     // ── UI ──
-    fullscreenBtn.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    });
+    fullscreenBtn.addEventListener('click', async () => {
+  if (!document.fullscreenElement) {
+    await document.documentElement.requestFullscreen();
+    fullscreenBtn.style.display = 'none';
+  } else {
+    await document.exitFullscreen();
+  }
+});
+
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement) {
+    fullscreenBtn.style.display = 'flex';
+  }
+});
 
     document.addEventListener('mousemove', () => {
       document.body.classList.add('show-cursor');
